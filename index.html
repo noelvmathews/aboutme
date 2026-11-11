@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NOELFLIX | Noel Varghese Mathews Portfolio</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Tone.js for Netflix 'Ta-Dum' and UX audio -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            netflix: {
+              red: '#E50914',
+              redHover: '#B81D24',
+              dark: '#141414',
+              card: '#181818',
+              cardHover: '#282828',
+              gray: '#808080',
+              lightGray: '#b3b3b3'
+            }
+          },
+          fontFamily: {
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            sans: ['Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          },
+          boxShadow: {
+            'netflix': '0 10px 25px -5px rgba(0, 0, 0, 0.8), 0 8px 10px -6px rgba(0, 0, 0, 0.8)',
+            'glow-red': '0 0 20px rgba(229, 9, 20, 0.45)'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar for Authentic Netflix Horizontal Carousels */
+    .netflix-scroll::-webkit-scrollbar {
+      height: 6px;
+    }
+    .netflix-scroll::-webkit-scrollbar-track {
+      background: rgba(20, 20, 20, 0.5);
+    }
+    .netflix-scroll::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 9999px;
+    }
+    .netflix-scroll::-webkit-scrollbar-thumb:hover {
+      background: #E50914;
+    }
+
+    /* Cinematic vignettes and overlay gradients */
+    .hero-vignette {
+      background: linear-gradient(77deg, rgba(0,0,0,.85) 0%, rgba(20,20,20,0.6) 45%, rgba(20,20,20,0.2) 80%),
+                  linear-gradient(180deg, rgba(20,20,20,0.1) 0%, rgba(20,20,20,0.8) 75%, #141414 100%);
+    }
+
+    .modal-backdrop {
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Card hover elevation */
+    .netflix-card {
+      transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s ease, z-index 0s;
+    }
+    .netflix-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      z-index: 30;
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.85), 0 0 15px rgba(229, 9, 20, 0.25);
+    }
+
+    /* Scanline effect for terminal */
+    .terminal-screen {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+      background-size: 100% 3px, 3px 100%;
+    }
+  </style>
+</head>
+<body class="bg-netflix-dark text-white font-sans antialiased selection:bg-netflix-red selection:text-white overflow-x-hidden min-h-screen">
+
+  <!-- ========================================================================= -->
+  <!-- SCREEN 1: WHO'S WATCHING? (Netflix Profile Selection Gate) -->
+  <!-- ========================================================================= -->
+  <div id="profile-gate" class="fixed inset-0 z-50 flex flex-col justify-center items-center bg-[#141414] transition-opacity duration-700 select-none px-4">
+    <div class="text-center mb-10">
+      <div class="flex items-center justify-center space-x-2 mb-3">
+        <span class="font-bebas text-5xl md:text-6xl tracking-wider text-netflix-red drop-shadow-[0_4px_12px_rgba(229,9,20,0.6)]">NOELFLIX</span>
+      </div>
+      <h1 class="text-3xl md:text-5xl font-semibold tracking-tight text-white mb-2">Who's watching?</h1>
+      <p class="text-netflix-gray text-sm md:text-base">Choose a profile tailored for your background</p>
+    </div>
+
+    <!-- Profile Cards Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-4xl w-full px-4">
+      
+      <!-- Profile: Recruiter -->
+      <button onclick="selectProfile('Recruiter', '👔')" class="group flex flex-col items-center focus:outline-none transition-transform active:scale-95">
+        <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-300 relative bg-gradient-to-br from-blue-700 via-indigo-900 to-black shadow-lg flex items-center justify-center">
+          <span class="text-4xl md:text-5xl group-hover:scale-110 transition-transform duration-300">👔</span>
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        </div>
+        <span class="mt-3 text-netflix-gray text-sm sm:text-base group-hover:text-white font-medium tracking-wide">Recruiter / Lead</span>
+        <span class="text-[11px] text-netflix-red uppercase tracking-wider font-semibold mt-0.5 opacity-90">High Match</span>
+      </button>
+
+      <!-- Profile: Hacker / Tech Enthusiast -->
+      <button onclick="selectProfile('Hacker / Systems Geek', '⚡')" class="group flex flex-col items-center focus:outline-none transition-transform active:scale-95">
+        <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-300 relative bg-gradient-to-br from-emerald-600 via-teal-900 to-black shadow-lg flex items-center justify-center">
+          <span class="text-4xl md:text-5xl group-hover:scale-110 transition-transform duration-300">⚡</span>
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        </div>
+        <span class="mt-3 text-netflix-gray text-sm sm:text-base group-hover:text-white font-medium tracking-wide">Tech / Hacker</span>
+        <span class="text-[11px] text-emerald-400 uppercase tracking-wider font-semibold mt-0.5">Code & Linux</span>
+      </button>
+
+      <!-- Profile: Student / Peer -->
+      <button onclick="selectProfile('Fellow Student / Peer', '🎓')" class="group flex flex-col items-center focus:outline-none transition-transform active:scale-95">
+        <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-300 relative bg-gradient-to-br from-amber-600 via-orange-950 to-black shadow-lg flex items-center justify-center">
+          <span class="text-4xl md:text-5xl group-hover:scale-110 transition-transform duration-300">🎓</span>
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        </div>
+        <span class="mt-3 text-netflix-gray text-sm sm:text-base group-hover:text-white font-medium tracking-wide">MITS Peer</span>
+        <span class="text-[11px] text-amber-400 uppercase tracking-wider font-semibold mt-0.5">Elevate Track</span>
+      </button>
+
+      <!-- Profile: Casual Visitor -->
+      <button onclick="selectProfile('Guest Explorer', '🍿')" class="group flex flex-col items-center focus:outline-none transition-transform active:scale-95">
+        <div class="w-24 h-24 sm:w-32 sm:h-32 md:w-36 md:h-36 rounded-md overflow-hidden border-2 border-transparent group-hover:border-white transition-all duration-300 relative bg-gradient-to-br from-purple-700 via-pink-950 to-black shadow-lg flex items-center justify-center">
+          <span class="text-4xl md:text-5xl group-hover:scale-110 transition-transform duration-300">🍿</span>
+          <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+        </div>
+        <span class="mt-3 text-netflix-gray text-sm sm:text-base group-hover:text-white font-medium tracking-wide">Guest / Explorer</span>
+        <span class="text-[11px] text-purple-400 uppercase tracking-wider font-semibold mt-0.5">Quick Binge</span>
+      </button>
+    </div>
+
+    <!-- Manage Profiles Action Button -->
+    <div class="mt-12">
+      <button onclick="enterDirectly()" class="px-6 py-2.5 border border-zinc-600 text-zinc-400 hover:text-white hover:border-white text-xs sm:text-sm tracking-widest uppercase font-semibold transition-all duration-300 rounded-sm hover:bg-white/5">
+        ENTER PORTFOLIO AS GUEST
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN APP CONTAINER -->
+  <!-- ========================================================================= -->
+  <div id="main-app" class="relative opacity-0 transition-opacity duration-700 flex flex-col min-h-screen">
+
+    <!-- Top Navigation Bar -->
+    <header id="netflix-navbar" class="fixed top-0 left-0 right-0 z-40 px-4 md:px-12 py-3.5 flex items-center justify-between transition-all duration-500 bg-gradient-to-b from-black/90 via-black/50 to-transparent">
+      
+      <!-- Brand & Primary Nav -->
+      <div class="flex items-center space-x-6 lg:space-x-10">
+        <a href="#hero" class="font-bebas text-3xl md:text-4xl tracking-wider text-netflix-red hover:opacity-90 transition-opacity drop-shadow-[0_2px_8px_rgba(229,9,20,0.6)]">
+          NOELFLIX
+        </a>
+
+        <nav class="hidden md:flex items-center space-x-5 text-xs lg:text-sm text-zinc-300 font-medium">
+          <a href="#hero" class="hover:text-white transition-colors">Home</a>
+          <a href="#projects" class="hover:text-white transition-colors">Top Picks (Projects)</a>
+          <a href="#skills" class="hover:text-white transition-colors">Tech Stack</a>
+          <a href="#experience" class="hover:text-white transition-colors">Roles & Leadership</a>
+          <a href="#milestones" class="hover:text-white transition-colors">Certifications</a>
+          <a href="#contact" class="hover:text-white transition-colors">Connect</a>
+        </nav>
+      </div>
+
+      <!-- Right Nav Utility Elements -->
+      <div class="flex items-center space-x-3 md:space-x-5 text-sm">
+        
+        <!-- Search Trigger / Box -->
+        <div class="relative flex items-center">
+          <div id="search-container" class="flex items-center overflow-hidden transition-all duration-300 w-8 focus-within:w-48 sm:focus-within:w-64 bg-black/60 rounded-full border border-transparent focus-within:border-zinc-500 px-2 py-1">
+            <button onclick="focusSearch()" aria-label="Search portfolio" class="text-zinc-300 hover:text-white focus:outline-none px-1">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <input id="portfolio-search" type="text" placeholder="Titles, skills, tags..." oninput="handleSearch(this.value)" class="bg-transparent text-xs text-white placeholder-zinc-400 focus:outline-none ml-2 w-full">
+          </div>
+        </div>
+
+        <!-- Terminal Launcher Quick Button -->
+        <button onclick="toggleTerminalModal()" title="Open Hacker Terminal" class="relative text-zinc-300 hover:text-emerald-400 transition-colors p-1.5 rounded-full hover:bg-white/10 text-xs sm:text-sm font-mono border border-zinc-700 px-2.5 flex items-center space-x-1.5">
+          <i class="fa-solid fa-terminal text-emerald-400"></i>
+          <span class="hidden sm:inline text-xs">CLI</span>
+        </button>
+
+        <!-- Resume Download CTA -->
+        <button onclick="triggerResumeDownload()" class="flex items-center space-x-2 bg-netflix-red hover:bg-netflix-redHover text-white px-3 sm:px-4 py-1.5 rounded text-xs font-semibold tracking-wide shadow-glow-red transition-all transform active:scale-95">
+          <i class="fa-solid fa-file-arrow-down"></i>
+          <span class="hidden sm:inline">Resume</span>
+        </button>
+
+        <!-- Current Profile Badge / Switcher -->
+        <div class="relative group">
+          <button class="flex items-center space-x-2 focus:outline-none">
+            <div id="current-avatar" class="w-8 h-8 rounded bg-gradient-to-tr from-blue-700 to-indigo-900 border border-zinc-500 flex items-center justify-center text-sm shadow">
+              👔
+            </div>
+            <i class="fa-solid fa-caret-down text-[10px] text-zinc-400 group-hover:rotate-180 transition-transform"></i>
+          </button>
+
+          <!-- Dropdown menu -->
+          <div class="absolute right-0 mt-2 w-48 bg-netflix-card border border-zinc-700 rounded-md shadow-2xl py-2 hidden group-hover:block transition-all z-50">
+            <div class="px-4 py-2 border-b border-zinc-800">
+              <p class="text-[11px] text-zinc-400">Signed in as</p>
+              <p id="profile-label" class="text-xs font-bold text-white truncate">Recruiter / Lead</p>
+            </div>
+            <button onclick="switchProfiles()" class="w-full text-left px-4 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white flex items-center space-x-2">
+              <i class="fa-solid fa-users text-zinc-400"></i>
+              <span>Switch Profile</span>
+            </button>
+            <a href="#contact" class="block px-4 py-2 text-xs text-zinc-300 hover:bg-zinc-800 hover:text-white flex items-center space-x-2">
+              <i class="fa-solid fa-address-card text-zinc-400"></i>
+              <span>Direct Contact</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- ========================================================================= -->
+    <!-- HERO / BILLBOARD SECTION -->
+    <!-- ========================================================================= -->
+    <section id="hero" class="relative w-full h-[85vh] sm:h-[90vh] flex items-center justify-start overflow-hidden pt-16">
+      
+      <!-- Dynamic Atmospheric Background (SVG Tech Matrix + Blueprint Grid) -->
+      <div class="absolute inset-0 bg-netflix-dark">
+        <!-- Abstract Animated System Canvas / Illustration -->
+        <div class="absolute inset-0 bg-[radial-gradient(#202020_1px,transparent_1px)] [background-size:24px_24px] opacity-40"></div>
+        
+        <!-- Cinematic Blueprint Visual Graphic for VOIDFLOW -->
+        <div class="absolute right-0 top-0 w-full lg:w-3/5 h-full opacity-35 lg:opacity-60 pointer-events-none flex items-center justify-end overflow-hidden pr-4 lg:pr-16">
+          <svg class="w-full max-w-2xl h-auto text-red-500/20" viewBox="0 0 600 600" fill="none" stroke="currentColor">
+            <circle cx="300" cy="300" r="240" stroke-width="1.5" stroke-dasharray="8 8" class="animate-spin" style="animation-duration: 90s;"/>
+            <circle cx="300" cy="300" r="170" stroke-width="2" stroke="rgba(229, 9, 20, 0.4)"/>
+            <polygon points="300,140 440,380 160,380" stroke-width="2" stroke="rgba(255,255,255,0.15)"/>
+            <path d="M 120 300 Q 300 200 480 300 T 580 300" stroke-width="2" stroke="rgba(229,9,20,0.5)" fill="none"/>
+            <path d="M 80 350 Q 250 250 420 350 T 550 350" stroke-width="1" stroke="rgba(59, 130, 246, 0.5)" fill="none"/>
+            <line x1="100" y1="300" x2="500" y2="300" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+            <line x1="300" y1="100" x2="300" y2="500" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          </svg>
+        </div>
+
+        <!-- Ambient Glow Elements -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-netflix-red/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-10 right-1/3 w-80 h-80 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      </div>
+
+      <!-- Vignette Gradients for True Netflix Aesthetic -->
+      <div class="absolute inset-0 hero-vignette pointer-events-none"></div>
+
+      <!-- Hero Content Container -->
+      <div class="relative z-10 max-w-4xl px-6 md:px-14 lg:px-20 flex flex-col justify-center">
+        
+        <!-- Billboard Badge -->
+        <div class="flex items-center space-x-3 mb-3">
+          <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-bold tracking-widest uppercase bg-netflix-red text-white shadow-md">
+            FEATURED ORIGINAL
+          </span>
+          <span class="text-xs text-emerald-400 font-bold tracking-wide flex items-center">
+            <i class="fa-solid fa-chart-line mr-1 text-[10px]"></i> 99% Match for Systems Engineering
+          </span>
+          <span class="text-xs text-zinc-400 font-medium">B.Tech CSE '28 • MITS</span>
+        </div>
+
+        <!-- Blockbuster Title -->
+        <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-sans text-white uppercase drop-shadow-xl leading-none">
+          NOEL VARGHESE MATHEWS
+        </h1>
+        <p class="font-bebas text-2xl sm:text-3xl text-zinc-300 tracking-wide mt-1 text-netflix-red">
+          VOIDFLOW &amp; DISTRIBUTED ARCHITECTURE
+        </p>
+
+        <!-- Metadata Row (Netflix style: Year, Rating, Badges) -->
+        <div class="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm text-zinc-300 my-4">
+          <span class="font-bold text-white">2026 Edition</span>
+          <span class="border border-zinc-600 px-1.5 py-0.2 rounded text-[11px] text-zinc-300 font-mono">CSE CORE</span>
+          <span class="text-zinc-400 font-semibold">Chief Systems Architect @ Code Kootu</span>
+          <span class="border border-netflix-red/60 text-netflix-red px-1.5 py-0.2 rounded text-[11px] font-semibold">100xDevs Elevate</span>
+          <span class="text-xs bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">4K ULTRA HD SYSTEMS</span>
+        </div>
+
+        <!-- Logline / Synopsis -->
+        <p class="text-zinc-300 text-sm sm:text-base md:text-lg max-w-2xl line-clamp-3 md:line-clamp-none font-normal leading-relaxed text-shadow">
+          Autonomous urban flood mitigation systems, high-throughput network packet inspectors, and embedded hardware architectures. Directing multi-disciplinary engineering initiatives at Code Kootu while mastering deep systems programming in C++ &amp; Python.
+        </p>
+
+        <!-- CTA Buttons Row -->
+        <div class="flex flex-wrap items-center gap-4 mt-7">
+          <button onclick="openModal('voidflow')" class="flex items-center space-x-2.5 bg-white hover:bg-zinc-200 text-black px-6 py-2.5 sm:py-3 rounded font-bold text-sm sm:text-base tracking-wide transition-all duration-200 shadow-xl transform active:scale-95">
+            <i class="fa-solid fa-play text-base text-black"></i>
+            <span>Inspect Flagship</span>
+          </button>
+
+          <button onclick="openModal('about-noel')" class="flex items-center space-x-2.5 bg-zinc-700/80 hover:bg-zinc-600/90 text-white px-5 py-2.5 sm:py-3 rounded font-semibold text-sm sm:text-base tracking-wide backdrop-blur-md transition-all duration-200 shadow-xl border border-zinc-600/50">
+            <i class="fa-solid fa-circle-info text-base"></i>
+            <span>Candidate Dossier</span>
+          </button>
+
+          <button onclick="toggleTerminalModal()" class="flex items-center space-x-2 bg-black/60 hover:bg-zinc-800/90 text-emerald-400 border border-emerald-500/40 px-4 py-2.5 sm:py-3 rounded text-sm font-mono tracking-tight transition-all">
+            <i class="fa-solid fa-terminal text-xs"></i>
+            <span>Launch CLI</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Subtle Volume / Audio Indicator Pill on bottom right -->
+      <div class="absolute bottom-16 right-6 md:right-12 z-20 flex items-center space-x-2 bg-black/60 backdrop-blur-md border border-zinc-700 px-3 py-1.5 rounded-full text-xs text-zinc-300 cursor-pointer hover:border-zinc-500" onclick="playChime()">
+        <i class="fa-solid fa-volume-high text-netflix-red"></i>
+        <span class="text-[11px] hidden sm:inline">Interactive Sound FX Ready</span>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- CONTENT CAROUSELS / ROWS -->
+    <!-- ========================================================================= -->
+    <main class="relative z-20 -mt-12 md:-mt-20 space-y-12 pb-24 px-4 md:px-12">
+
+      <!-- ========================================== -->
+      <!-- ROW 1: TOP PICKS (FEATURED PROJECTS) -->
+      <!-- ========================================== -->
+      <section id="projects" class="space-y-3">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <h2 class="text-lg md:text-2xl font-bold tracking-tight text-white flex items-center">
+              Top Picks for Tech Recruiters &amp; Leads
+              <span class="ml-2 text-xs text-netflix-red font-mono tracking-normal font-semibold">EXPLORE ALL &gt;</span>
+            </h2>
+          </div>
+          <div class="text-xs text-zinc-400 font-mono hidden sm:block">Hover to expand • Click for architectural breakdown</div>
+        </div>
+
+        <!-- Horizontal Scroll Container -->
+        <div class="relative group">
+          <div id="carousel-projects" class="flex space-x-4 overflow-x-auto py-4 netflix-scroll scroll-smooth">
+            
+            <!-- Card 1: VOIDFLOW -->
+            <div onclick="openModal('voidflow')" class="netflix-card flex-none w-72 sm:w-80 bg-netflix-card rounded-md overflow-hidden cursor-pointer border border-zinc-800/80 group/card">
+              <div class="h-44 bg-gradient-to-tr from-cyan-950 via-zinc-900 to-blue-900 relative p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                  <span class="bg-netflix-red text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow">FLAGSHIP</span>
+                  <span class="text-xs font-mono text-cyan-400 bg-black/60 px-2 py-0.5 rounded border border-cyan-500/30">IoT &amp; Systems</span>
+                </div>
+                <div>
+                  <h3 class="font-bebas text-2xl tracking-wide text-white">VOIDFLOW</h3>
+                  <p class="text-xs text-cyan-300 font-medium">Autonomous Urban Flood Mitigation System</p>
+                </div>
+                <div class="absolute bottom-2 right-3 text-cyan-400/20 group-hover/card:text-cyan-400/60 transition-colors text-5xl">
+                  <i class="fa-solid fa-water"></i>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2 bg-[#181818]">
+                <div class="flex items-center space-x-2 text-xs">
+                  <span class="text-emerald-400 font-bold">99% Match</span>
+                  <span class="border border-zinc-700 text-zinc-400 text-[10px] px-1 rounded">C++ / IoT</span>
+                  <span class="text-zinc-400 text-[11px]">Hardware + Cloud</span>
+                </div>
+                <p class="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
+                  Real-time hydrologic sensor mesh with automated sluice servo controls, void retention basins, and emergency failover protocols.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Arduino</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Python</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">MQTT</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2: CONVERGE HACKATHON WINNER -->
+            <div onclick="openModal('converge')" class="netflix-card flex-none w-72 sm:w-80 bg-netflix-card rounded-md overflow-hidden cursor-pointer border border-zinc-800/80 group/card">
+              <div class="h-44 bg-gradient-to-tr from-amber-950 via-zinc-900 to-red-950 relative p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                  <span class="bg-amber-500 text-black text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow">1ST PLACE WINNER</span>
+                  <span class="text-xs font-mono text-amber-400 bg-black/60 px-2 py-0.5 rounded border border-amber-500/30">Oct 2026</span>
+                </div>
+                <div>
+                  <h3 class="font-bebas text-2xl tracking-wide text-white">CONVERGE FLOW INSPECTOR</h3>
+                  <p class="text-xs text-amber-300 font-medium">Real-Time Client-Server Execution Visualizer</p>
+                </div>
+                <div class="absolute bottom-2 right-3 text-amber-400/20 group-hover/card:text-amber-400/60 transition-colors text-5xl">
+                  <i class="fa-solid fa-trophy"></i>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2 bg-[#181818]">
+                <div class="flex items-center space-x-2 text-xs">
+                  <span class="text-emerald-400 font-bold">98% Match</span>
+                  <span class="border border-zinc-700 text-zinc-400 text-[10px] px-1 rounded">Hackathon</span>
+                  <span class="text-zinc-400 text-[11px]">Inter-Team Winner</span>
+                </div>
+                <p class="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
+                  Real-time pipeline monitoring and socket payload visualizer engineered under intense 24h hackathon constraints.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Node.js</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">WebSockets</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Architecture</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: PACKET INTERCEPTOR -->
+            <div onclick="openModal('interceptor')" class="netflix-card flex-none w-72 sm:w-80 bg-netflix-card rounded-md overflow-hidden cursor-pointer border border-zinc-800/80 group/card">
+              <div class="h-44 bg-gradient-to-tr from-emerald-950 via-zinc-900 to-teal-950 relative p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                  <span class="bg-emerald-600 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow">SECURITY SUITE</span>
+                  <span class="text-xs font-mono text-emerald-400 bg-black/60 px-2 py-0.5 rounded border border-emerald-500/30">Kali &amp; Bettercap</span>
+                </div>
+                <div>
+                  <h3 class="font-bebas text-2xl tracking-wide text-white">NETWORK PACKET INTERCEPTOR</h3>
+                  <p class="text-xs text-emerald-300 font-medium">Security Auditing &amp; Traffic Analysis Pipeline</p>
+                </div>
+                <div class="absolute bottom-2 right-3 text-emerald-400/20 group-hover/card:text-emerald-400/60 transition-colors text-5xl">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2 bg-[#181818]">
+                <div class="flex items-center space-x-2 text-xs">
+                  <span class="text-emerald-400 font-bold">96% Match</span>
+                  <span class="border border-zinc-700 text-zinc-400 text-[10px] px-1 rounded">Offensive Tech</span>
+                  <span class="text-zinc-400 text-[11px]">Linux Workflows</span>
+                </div>
+                <p class="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
+                  Deep analysis of protocol handshakes, ARP spoofing detection scripts, and forensic payload dissection.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Python</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Scapy</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Wireshark</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4: HOSTEL KATHAKAL / MEDIA REEL -->
+            <div onclick="openModal('media')" class="netflix-card flex-none w-72 sm:w-80 bg-netflix-card rounded-md overflow-hidden cursor-pointer border border-zinc-800/80 group/card">
+              <div class="h-44 bg-gradient-to-tr from-purple-950 via-zinc-900 to-pink-950 relative p-4 flex flex-col justify-between">
+                <div class="flex justify-between items-start">
+                  <span class="bg-purple-600 text-[10px] font-extrabold uppercase px-2 py-0.5 rounded shadow">CREATIVE DIRECTION</span>
+                  <span class="text-xs font-mono text-purple-300 bg-black/60 px-2 py-0.5 rounded border border-purple-500/30">Storytelling</span>
+                </div>
+                <div>
+                  <h3 class="font-bebas text-2xl tracking-wide text-white">HOSTEL KATHAKAL REEL</h3>
+                  <p class="text-xs text-purple-300 font-medium">Cinematic Narrative &amp; DaVinci Color Suite</p>
+                </div>
+                <div class="absolute bottom-2 right-3 text-purple-400/20 group-hover/card:text-purple-400/60 transition-colors text-5xl">
+                  <i class="fa-solid fa-clapperboard"></i>
+                </div>
+              </div>
+              <div class="p-3.5 space-y-2 bg-[#181818]">
+                <div class="flex items-center space-x-2 text-xs">
+                  <span class="text-purple-400 font-bold">Creative Vision</span>
+                  <span class="border border-zinc-700 text-zinc-400 text-[10px] px-1 rounded">Media</span>
+                  <span class="text-zinc-400 text-[11px]">Cinematic Audio</span>
+                </div>
+                <p class="text-xs text-zinc-300 line-clamp-2 leading-relaxed">
+                  Campus life documentary short featuring pacing, sound engineering, color grading, and creative narrative direction.
+                </p>
+                <div class="flex flex-wrap gap-1.5 pt-1">
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">DaVinci Resolve</span>
+                  <span class="text-[10px] bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded">Audio Sync</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- ROW 2: TECHNICAL ARSENAL (SKILLS) -->
+      <!-- ========================================== -->
+      <section id="skills" class="space-y-3">
+        <h2 class="text-lg md:text-2xl font-bold tracking-tight text-white flex items-center">
+          Trending Now: Technical Skills &amp; Arsenal
+          <span class="ml-2 text-xs text-netflix-red font-mono font-semibold">STACK METRICS &gt;</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-1">
+          
+          <!-- Category 1: Core Programming -->
+          <div class="bg-netflix-card p-4 rounded border border-zinc-800 hover:border-zinc-600 transition-colors space-y-3">
+            <div class="flex items-center justify-between text-netflix-red">
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider">Languages</span>
+              <i class="fa-solid fa-code text-base"></i>
+            </div>
+            <div class="space-y-2">
+              <div>
+                <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                  <span>C++ (OOP, STL, Data Structures)</span>
+                  <span class="text-zinc-400 font-mono">92%</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div class="bg-netflix-red h-1.5 rounded-full" style="width: 92%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                  <span>Python (Scripting &amp; Systems)</span>
+                  <span class="text-zinc-400 font-mono">90%</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div class="bg-netflix-red h-1.5 rounded-full" style="width: 90%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                  <span>JavaScript / Node.js</span>
+                  <span class="text-zinc-400 font-mono">84%</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div class="bg-netflix-red h-1.5 rounded-full" style="width: 84%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-xs text-zinc-300 mb-1">
+                  <span>Shell / Bash Scripting</span>
+                  <span class="text-zinc-400 font-mono">88%</span>
+                </div>
+                <div class="w-full bg-zinc-800 rounded-full h-1.5">
+                  <div class="bg-netflix-red h-1.5 rounded-full" style="width: 88%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Category 2: Systems & Infra -->
+          <div class="bg-netflix-card p-4 rounded border border-zinc-800 hover:border-zinc-600 transition-colors space-y-3">
+            <div class="flex items-center justify-between text-blue-400">
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider">Systems &amp; DevOps</span>
+              <i class="fa-solid fa-server text-base"></i>
+            </div>
+            <div class="flex flex-wrap gap-2 text-xs">
+              <span class="bg-zinc-800 text-zinc-200 px-2.5 py-1 rounded border border-zinc-700">Linux (Kali, Ubuntu, Arch)</span>
+              <span class="bg-zinc-800 text-zinc-200 px-2.5 py-1 rounded border border-zinc-700">Docker Containers</span>
+              <span class="bg-zinc-800 text-zinc-200 px-2.5 py-1 rounded border border-zinc-700">Git &amp; GitHub Actions</span>
+              <span class="bg-zinc-800 text-zinc-200 px-2.5 py-1 rounded border border-zinc-700">Embedded Microcontrollers</span>
+              <span class="bg-zinc-800 text-zinc-200 px-2.5 py-1 rounded border border-zinc-700">Serial &amp; I2C Communication</span>
+            </div>
+            <p class="text-[11px] text-zinc-400 italic">Robust operating environment proficiency across UNIX environments &amp; kernel internals.</p>
+          </div>
+
+          <!-- Category 3: CS Core Fundamentals -->
+          <div class="bg-netflix-card p-4 rounded border border-zinc-800 hover:border-zinc-600 transition-colors space-y-3">
+            <div class="flex items-center justify-between text-emerald-400">
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider">CS Fundamentals</span>
+              <i class="fa-solid fa-microchip text-base"></i>
+            </div>
+            <ul class="space-y-1.5 text-xs text-zinc-300">
+              <li class="flex items-center space-x-2">
+                <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                <span>Data Structures &amp; Algorithms (C++)</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                <span>Computer Networking &amp; TCP/IP Stack</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                <span>Operating Systems &amp; Concurrency</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <i class="fa-solid fa-check text-emerald-400 text-[10px]"></i>
+                <span>Relational Databases (SQL)</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Category 4: Security & Protocols -->
+          <div class="bg-netflix-card p-4 rounded border border-zinc-800 hover:border-zinc-600 transition-colors space-y-3">
+            <div class="flex items-center justify-between text-purple-400">
+              <span class="text-xs font-mono font-semibold uppercase tracking-wider">Security &amp; Protocols</span>
+              <i class="fa-solid fa-fingerprint text-base"></i>
+            </div>
+            <div class="space-y-2 text-xs text-zinc-300">
+              <div class="bg-zinc-800/80 p-2 rounded border border-zinc-700/50">
+                <p class="font-semibold text-white">Bettercap &amp; Packet Injection</p>
+                <p class="text-[11px] text-zinc-400">Local network topology analysis &amp; mitm simulations</p>
+              </div>
+              <div class="bg-zinc-800/80 p-2 rounded border border-zinc-700/50">
+                <p class="font-semibold text-white">Cryptographic Concepts</p>
+                <p class="text-[11px] text-zinc-400">Symmetric/Asymmetric encryption, Hash security</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- ROW 3: BINGE-WORTHY ROLES & LEADERSHIP -->
+      <!-- ========================================== -->
+      <section id="experience" class="space-y-3">
+        <h2 class="text-lg md:text-2xl font-bold tracking-tight text-white flex items-center">
+          Binge-Worthy Leadership &amp; Production Credits
+          <span class="ml-2 text-xs text-netflix-red font-mono font-semibold">ORGANIZATIONS &gt;</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          
+          <!-- Role 1: Chief Systems Architect -->
+          <div onclick="openModal('code-kootu')" class="netflix-card bg-netflix-card p-5 rounded-md border border-zinc-800 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-red-600/20 text-red-400 text-[11px] font-mono px-2 py-0.5 rounded border border-red-500/30">EXECUTIVE LEAD</span>
+                <span class="text-xs text-zinc-400 font-mono">Present</span>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-netflix-red transition-colors">Chief Systems Architect &amp; Tech Director</h3>
+              <p class="text-xs text-zinc-400 font-medium mb-3">Code Kootu Engineering Wing</p>
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                Spearheading technical roadmaps across systems engineering, hardware interfaces, and student developer cohorts. Setting code review quality benchmarks and architecture designs.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
+              <span class="text-netflix-red font-semibold">Season 1 • Active</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+          <!-- Role 2: Class Representative & Union Member -->
+          <div onclick="openModal('mits-rep')" class="netflix-card bg-netflix-card p-5 rounded-md border border-zinc-800 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-blue-600/20 text-blue-400 text-[11px] font-mono px-2 py-0.5 rounded border border-blue-500/30">GOVERNANCE</span>
+                <span class="text-xs text-zinc-400 font-mono">2024 - Present</span>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-netflix-red transition-colors">S1 CSE Class Representative</h3>
+              <p class="text-xs text-zinc-400 font-medium mb-3">Muthoot Institute of Technology &amp; Science (MITS)</p>
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                Liaison representing student body interests to department heads. Coordinating academic schedules, grievance resolution, and university technical symposium participation.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
+              <span class="text-blue-400 font-semibold">Leadership Core</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+          <!-- Role 3: 100xDevs Elevate Cohort -->
+          <div onclick="openModal('100xdevs')" class="netflix-card bg-netflix-card p-5 rounded-md border border-zinc-800 cursor-pointer flex flex-col justify-between">
+            <div>
+              <div class="flex justify-between items-start mb-3">
+                <span class="bg-amber-600/20 text-amber-400 text-[11px] font-mono px-2 py-0.5 rounded border border-amber-500/30">COHORT</span>
+                <span class="text-xs text-zinc-400 font-mono">Selective</span>
+              </div>
+              <h3 class="text-lg font-bold text-white group-hover:text-netflix-red transition-colors">100xDevs Elevate Cohort Member</h3>
+              <p class="text-xs text-zinc-400 font-medium mb-3">Harkirat Singh's Intensive Engineering Track</p>
+              <p class="text-xs text-zinc-300 leading-relaxed">
+                Deep-dive rigorous training in scalable backend engineering, algorithmic optimizations, asynchronous event architectures, and full-stack DevOps automation.
+              </p>
+            </div>
+            <div class="mt-4 pt-3 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-400">
+              <span class="text-amber-400 font-semibold">High Intensity</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- ROW 4: CERTIFICATIONS & MILESTONES -->
+      <!-- ========================================== -->
+      <section id="milestones" class="space-y-3">
+        <h2 class="text-lg md:text-2xl font-bold tracking-tight text-white flex items-center">
+          Critically Acclaimed: Milestones &amp; Certifications
+          <span class="ml-2 text-xs text-netflix-red font-mono font-semibold">AWARDS &gt;</span>
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          
+          <div class="bg-gradient-to-br from-zinc-900 to-black p-4 rounded-md border border-zinc-800 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl flex-shrink-0">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div>
+              <p class="text-xs text-amber-400 font-semibold uppercase tracking-wider">1st Place Winner</p>
+              <h4 class="text-sm font-bold text-white">CONVERGE Hackathon</h4>
+              <p class="text-xs text-zinc-400">Inter-Team Technical Hackathon (Oct 2026)</p>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-zinc-900 to-black p-4 rounded-md border border-zinc-800 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 text-xl flex-shrink-0">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div>
+              <p class="text-xs text-blue-400 font-semibold uppercase tracking-wider">Competitive Exam</p>
+              <h4 class="text-sm font-bold text-white">JEE Main 96.92 Percentile</h4>
+              <p class="text-xs text-zinc-400">All India Rank 48,543 (Top 3.1% nationwide)</p>
+            </div>
+          </div>
+
+          <div class="bg-gradient-to-br from-zinc-900 to-black p-4 rounded-md border border-zinc-800 flex items-center space-x-4">
+            <div class="w-12 h-12 rounded bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl flex-shrink-0">
+              <i class="fa-solid fa-certificate"></i>
+            </div>
+            <div>
+              <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Certified Core</p>
+              <h4 class="text-sm font-bold text-white">100xDevs DSA &amp; C++ Bootcamp</h4>
+              <p class="text-xs text-zinc-400">Algorithmic Problem Solving &amp; Modern C++</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SECTION: VIP CONNECT / ACCOUNT SETTINGS -->
+      <!-- ========================================== -->
+      <section id="contact" class="pt-8 border-t border-zinc-800/80">
+        <div class="bg-[#181818] rounded-xl border border-zinc-800 p-6 md:p-10 shadow-2xl">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-6 border-b border-zinc-800">
+            <div>
+              <span class="text-xs text-netflix-red font-mono font-bold uppercase tracking-wider">VIP Account Terminal</span>
+              <h2 class="text-2xl md:text-3xl font-extrabold text-white mt-1">Ready to Cast Noel on Your Engineering Team?</h2>
+              <p class="text-xs md:text-sm text-zinc-400 mt-1 max-w-xl">
+                Open for Summer 2027 Systems/Software internships, collaborative research, and open-source infrastructure architecture.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <button onclick="triggerResumeDownload()" class="bg-netflix-red hover:bg-netflix-redHover text-white px-5 py-2.5 rounded font-semibold text-xs tracking-wider uppercase transition-all shadow-glow-red flex items-center space-x-2">
+                <i class="fa-solid fa-download"></i>
+                <span>Download Resume</span>
+              </button>
+              <button onclick="copyEmail()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 px-4 py-2.5 rounded font-mono text-xs flex items-center space-x-2 transition-all">
+                <i class="fa-solid fa-copy"></i>
+                <span id="copy-email-text">Copy Email</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Direct Channels Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="bg-black/40 hover:bg-black/80 border border-zinc-800 hover:border-zinc-600 p-4 rounded-lg flex items-center space-x-3 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-zinc-800 flex items-center justify-center text-white text-lg">
+                <i class="fa-brands fa-github"></i>
+              </div>
+              <div>
+                <p class="text-xs text-zinc-400">Source Repositories</p>
+                <p class="text-sm font-semibold text-white">GitHub Profile</p>
+              </div>
+            </a>
+
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="bg-black/40 hover:bg-black/80 border border-zinc-800 hover:border-zinc-600 p-4 rounded-lg flex items-center space-x-3 transition-colors">
+              <div class="w-10 h-10 rounded-full bg-blue-900/40 text-blue-400 flex items-center justify-center text-lg">
+                <i class="fa-brands fa-linkedin"></i>
+              </div>
+              <div>
+                <p class="text-xs text-zinc-400">Professional Network</p>
+                <p class="text-sm font-semibold text-white">LinkedIn Connection</p>
+              </div>
+            </a>
+
+            <div onclick="copyEmail()" class="bg-black/40 hover:bg-black/80 border border-zinc-800 hover:border-zinc-600 p-4 rounded-lg flex items-center space-x-3 cursor-pointer transition-colors">
+              <div class="w-10 h-10 rounded-full bg-red-900/40 text-red-400 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-envelope"></i>
+              </div>
+              <div>
+                <p class="text-xs text-zinc-400">Direct Dispatch</p>
+                <p class="text-sm font-semibold text-white truncate max-w-[150px]">noel.mathews@mits.ac.in</p>
+              </div>
+            </div>
+
+            <div onclick="toggleTerminalModal()" class="bg-black/40 hover:bg-black/80 border border-zinc-800 hover:border-emerald-500/50 p-4 rounded-lg flex items-center space-x-3 cursor-pointer transition-colors group">
+              <div class="w-10 h-10 rounded-full bg-emerald-950/60 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-terminal"></i>
+              </div>
+              <div>
+                <p class="text-xs text-emerald-400 font-mono">SSH Shell Port</p>
+                <p class="text-sm font-semibold text-white font-mono group-hover:text-emerald-300">curl noel.sh</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Netflix Brand Footer -->
+    <footer class="bg-black py-12 px-6 md:px-16 border-t border-zinc-900 text-zinc-500 text-xs">
+      <div class="max-w-6xl mx-auto space-y-6">
+        <p class="text-sm text-zinc-400 font-medium">Questions? Connect via terminal or email.</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-[11px]">
+          <a href="#hero" class="hover:underline">Home Deck</a>
+          <a href="#projects" class="hover:underline">Architecture Originals</a>
+          <a href="#skills" class="hover:underline">System Capabilities</a>
+          <a href="#experience" class="hover:underline">Production Credits</a>
+          <button onclick="triggerResumeDownload()" class="text-left hover:underline">Download Resume (PDF)</button>
+          <button onclick="switchProfiles()" class="text-left hover:underline">Switch Profile Gate</button>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:underline">GitHub Workspace</a>
+          <button onclick="toggleTerminalModal()" class="text-left hover:underline text-emerald-400">Terminal Shell</button>
+        </div>
+        <div class="pt-6 border-t border-zinc-900 flex flex-col sm:flex-row items-center justify-between text-zinc-600 gap-4">
+          <p>© 2026 NOELFLIX Systems Inc. Engineered for Noel Varghese Mathews. B.Tech Computer Science Core, MITS.</p>
+          <p class="font-mono text-[10px]">SERVICE CODE: 48543-MITS-2026</p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: EPISODE / PROJECT DETAIL INSPECTOR (Authentic Netflix Modal) -->
+  <!-- ========================================================================= -->
+  <div id="project-modal" class="fixed inset-0 z-50 modal-backdrop hidden overflow-y-auto p-3 sm:p-6 md:p-10 flex items-center justify-center">
+    
+    <div class="relative bg-netflix-card max-w-4xl w-full rounded-xl overflow-hidden shadow-2xl border border-zinc-700 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal()" class="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/70 hover:bg-zinc-800 text-white flex items-center justify-center transition-colors border border-zinc-600">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+
+      <!-- Modal Banner Graphic -->
+      <div id="modal-banner" class="relative h-64 sm:h-80 w-full p-6 sm:p-10 flex flex-col justify-end bg-gradient-to-t from-netflix-card via-black/60 to-transparent">
+        <div id="modal-badge-wrapper" class="mb-2">
+          <span id="modal-badge" class="bg-netflix-red text-white text-[11px] font-bold px-2.5 py-0.5 rounded uppercase tracking-wider">ORIGINAL</span>
+        </div>
+        <h2 id="modal-title" class="text-3xl sm:text-5xl font-extrabold text-white uppercase tracking-tight drop-shadow-md">PROJECT TITLE</h2>
+        <p id="modal-tagline" class="text-sm sm:text-base text-zinc-300 font-medium mt-1">Subtitle or architectural summary</p>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="p-6 sm:p-8 space-y-6">
+        
+        <!-- Metadata Row -->
+        <div class="flex flex-wrap items-center gap-3 text-xs sm:text-sm">
+          <span id="modal-match" class="text-emerald-400 font-bold">99% Match</span>
+          <span id="modal-year" class="text-zinc-400 font-semibold">2026</span>
+          <span id="modal-category" class="border border-zinc-700 text-zinc-300 px-2 py-0.5 rounded font-mono text-xs">Systems</span>
+          <span id="modal-stack-badge" class="bg-zinc-800 text-zinc-300 px-2 py-0.5 rounded text-xs font-semibold">Full Scale</span>
+        </div>
+
+        <!-- Description Paragraph -->
+        <div>
+          <h4 class="text-xs uppercase font-mono text-zinc-400 tracking-wider mb-1">Architecture Overview</h4>
+          <p id="modal-desc" class="text-sm sm:text-base text-zinc-200 leading-relaxed font-normal">
+            Detailed project breakdown goes here.
+          </p>
+        </div>
+
+        <!-- Episode / Architectural Highlights (Grid) -->
+        <div>
+          <h4 class="text-xs uppercase font-mono text-zinc-400 tracking-wider mb-2">Technical Specifications &amp; Modules</h4>
+          <div id="modal-specs-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-zinc-300">
+            <!-- Dynamic items populated by JS -->
+          </div>
+        </div>
+
+        <!-- Tech Tags List -->
+        <div>
+          <h4 class="text-xs uppercase font-mono text-zinc-400 tracking-wider mb-2">Technologies &amp; Protocols Utilized</h4>
+          <div id="modal-tags" class="flex flex-wrap gap-2">
+            <!-- Dynamic tag pills populated by JS -->
+          </div>
+        </div>
+
+        <!-- Action Triggers -->
+        <div class="pt-4 border-t border-zinc-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center space-x-3">
+            <button id="modal-primary-btn" onclick="openTerminalCommand('simulate')" class="bg-white hover:bg-zinc-200 text-black px-5 py-2 rounded font-bold text-xs uppercase tracking-wide flex items-center space-x-2 transition-colors">
+              <i class="fa-solid fa-play text-xs"></i>
+              <span>Simulate Flow</span>
+            </button>
+            <button onclick="copyModalLink()" class="bg-zinc-800 hover:bg-zinc-700 text-zinc-200 border border-zinc-700 px-4 py-2 rounded text-xs font-medium flex items-center space-x-2">
+              <i class="fa-solid fa-share-nodes"></i>
+              <span id="share-btn-text">Share Node</span>
+            </button>
+          </div>
+          <span class="text-xs font-mono text-zinc-500">ENGINEER: NOEL VARGHESE MATHEWS</span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: HACKER / CLI TERMINAL EASTER EGG -->
+  <!-- ========================================================================= -->
+  <div id="terminal-modal" class="fixed inset-0 z-50 modal-backdrop hidden p-4 sm:p-8 flex items-center justify-center">
+    <div class="relative bg-black max-w-2xl w-full rounded-lg overflow-hidden border border-zinc-700 shadow-2xl terminal-screen font-mono">
+      
+      <!-- Terminal Titlebar -->
+      <div class="bg-zinc-900 px-4 py-2.5 border-b border-zinc-800 flex items-center justify-between select-none">
+        <div class="flex items-center space-x-2">
+          <button onclick="toggleTerminalModal()" class="w-3 h-3 rounded-full bg-red-500 hover:opacity-80"></button>
+          <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+          <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+          <span class="text-xs text-zinc-400 ml-2">noel@mits-elevate: ~ (zsh)</span>
+        </div>
+        <span class="text-[11px] text-zinc-500">TYPE 'help' FOR COMMANDS</span>
+      </div>
+
+      <!-- Terminal Output Canvas -->
+      <div id="terminal-stdout" class="p-4 text-xs space-y-2 h-72 sm:h-80 overflow-y-auto text-zinc-300">
+        <p class="text-emerald-400 font-bold">NOELFLIX Autonomous Systems Shell v2.4.0-release</p>
+        <p class="text-zinc-500">Logged in as: <span class="text-white" id="term-user">Guest</span> | Target: Noel Varghese Mathews (CSE Core, MITS)</p>
+        <p class="text-zinc-400">Type <span class="text-amber-400">help</span> to list available commands or <span class="text-amber-400">clear</span> to reset.</p>
+        <div class="h-2"></div>
+      </div>
+
+      <!-- Terminal Input Line -->
+      <form onsubmit="handleTerminalInput(event)" class="bg-black/90 p-3 border-t border-zinc-800 flex items-center text-xs">
+        <span class="text-emerald-400 mr-2 font-bold">noel@systems:~$</span>
+        <input id="terminal-stdin" type="text" autocomplete="off" spellcheck="false" class="bg-transparent text-emerald-300 focus:outline-none w-full font-mono text-xs" placeholder="Type command (e.g. bio, projects, contact, skills)...">
+        <button type="submit" class="text-zinc-500 hover:text-white px-2">
+          <i class="fa-solid fa-arrow-turn-down text-xs"></i>
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Pill -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 bg-zinc-900 border border-netflix-red/60 text-white px-4 py-2.5 rounded-md shadow-2xl flex items-center space-x-3 text-xs">
+    <i class="fa-solid fa-circle-check text-netflix-red text-base"></i>
+    <span id="toast-message">Notification message</span>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- JAVASCRIPT LOGIC & DATA DICTIONARY -->
+  <!-- ========================================================================= -->
+  <script>
+    // Project & Experience Dataset
+    const portfolioData = {
+      'voidflow': {
+        title: "VOIDFLOW",
+        tagline: "Autonomous Urban Flood Mitigation Architecture & Sluice Mesh",
+        badge: "FLAGSHIP ORIGINAL",
+        match: "99% Match",
+        year: "2026",
+        category: "Embedded IoT & Architecture",
+        stackBadge: "Hardware + Cloud Mesh",
+        bgGradient: "linear-gradient(to top, #181818, rgba(6, 78, 59, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "VOIDFLOW is an autonomous, fail-safe urban hydrologic management system engineered to combat acute waterlogging and flash floods. By combining low-latency microcontroller sensor clusters (ultrasonic water-level and fluid-flow telemetry) with automated servo-actuated sluice gates, VOIDFLOW dynamically diverts surging stormwater into dedicated subterranean void storage retention systems before municipal stormwater drainage reaches critical overflow points.",
+        specs: [
+          { label: "Sluice Control Protocol", val: "Hardware PWM pulse actuation with manual override failover switch" },
+          { label: "Sensor Array", val: "Distributed ultrasonic depth nodes & fluid speed telemetry" },
+          { label: "Retention Strategy", val: "Dynamic void volume load-balancing algorithms" },
+          { label: "Telemetry Pipeline", val: "Lightweight MQTT payloads with edge fallback caching" }
+        ],
+        tags: ["C++", "Arduino", "Embedded Systems", "MQTT", "Python", "Sensors", "Failover Systems"]
+      },
+      'converge': {
+        title: "CONVERGE FLOW INSPECTOR",
+        tagline: "Real-Time Client-Server Execution Flow Visualizer (1st Place Hackathon)",
+        badge: "AWARD WINNER",
+        match: "98% Match",
+        year: "Oct 2026",
+        category: "Systems & Visualizer",
+        stackBadge: "Hackathon Winner",
+        bgGradient: "linear-gradient(to top, #181818, rgba(146, 64, 14, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "Engineered under high-pressure 24-hour constraints for the CONVERGE Inter-Team Hackathon, this system visually tracks and instruments microsecond request flows across distributed client-server nodes. It allows engineers to detect dropped frames, asymmetric latencies, and socket connection spikes through an interactive streaming canvas.",
+        specs: [
+          { label: "Accolade", val: "1st Place Winner - CONVERGE Technical Hackathon" },
+          { label: "Ingestion Latency", val: "< 12ms WebSocket packet propagation" },
+          { label: "Throughput", val: "Benchmarked up to 15,000 synthetic events/sec" },
+          { label: "Visualization", val: "Dynamic event queue canvas with state machine validation" }
+        ],
+        tags: ["Node.js", "WebSockets", "Data Structures", "Event Loop", "Real-Time Canvas", "Distributed Systems"]
+      },
+      'interceptor': {
+        title: "NETWORK PACKET INTERCEPTOR",
+        tagline: "Security Analysis, ARP Spoofing Detection & Forensic Packet Dissection",
+        badge: "CYBERSECURITY",
+        match: "96% Match",
+        year: "2025-2026",
+        category: "Offensive & Defensive Security",
+        stackBadge: "Network Forensics",
+        bgGradient: "linear-gradient(to top, #181818, rgba(6, 95, 70, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "A modular network diagnostics and payload inspector built on Kali Linux workflows. Utilizes Scapy and custom low-level raw sockets to inspect promiscuous network traffic, trace unauthorized ARP poisoning attempts, and visualize unencrypted socket handshakes in laboratory environments.",
+        specs: [
+          { label: "Tools Integrated", val: "Kali Linux, Bettercap, Scapy, Wireshark" },
+          { label: "Heuristics", val: "MAC-IP mismatch alerting & broadcast flood throttle detection" },
+          { label: "Analysis Mode", val: "PCAP dump stream parsing with regex packet payload matching" },
+          { label: "Protocol Coverage", val: "TCP, UDP, ICMP, ARP, DNS query audits" }
+        ],
+        tags: ["Python", "Kali Linux", "Scapy", "Wireshark", "Bettercap", "TCP/IP", "Network Security"]
+      },
+      'media': {
+        title: "HOSTEL KATHAKAL REEL",
+        tagline: "Cinematic Narrative Production, Sound Engineering & DaVinci Color Grading",
+        badge: "MEDIA PRODUCTION",
+        match: "94% Match",
+        year: "2025",
+        category: "Creative Direction",
+        stackBadge: "Audiovisual",
+        bgGradient: "linear-gradient(to top, #181818, rgba(88, 28, 135, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "Showcases multi-disciplinary storytelling abilities beyond pure code. Directing and color grading documentary-style campus narratives. Highlights meticulous pacing, Foley sound synchronization, high dynamic range LUT balancing, and engaging digital framing.",
+        specs: [
+          { label: "Editing Suite", val: "DaVinci Resolve Studio (Node-based color grading)" },
+          { label: "Soundtrack Mastering", val: "Multi-track dialogue restoration & binaural ambient mixing" },
+          { label: "Frame Rate", val: "Cinematic 24fps native timeline with dynamic speed ramps" }
+        ],
+        tags: ["DaVinci Resolve", "Color Grading", "Creative Direction", "Audio Engineering", "Storytelling"]
+      },
+      'code-kootu': {
+        title: "CODE KOOTU",
+        tagline: "Chief Systems Architect & Technical Director",
+        badge: "LEADERSHIP ROLE",
+        match: "100% Match",
+        year: "Active",
+        category: "Executive Systems Leadership",
+        stackBadge: "Directorate",
+        bgGradient: "linear-gradient(to top, #181818, rgba(185, 28, 28, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "Directing technical initiatives across software architecture, firmware integration, and student research teams at Code Kootu. Responsible for establishing core coding conventions, architecting collaborative open-source tooling, and orchestrating hackathons and technical bootcamps.",
+        specs: [
+          { label: "Span of Leadership", val: "Directing multidisciplinary systems & software wings" },
+          { label: "Key Responsibility", val: "System architecture vetting, repo standards, mentor guidance" },
+          { label: "Focus Areas", val: "Distributed architectures, microcontrollers, cybersecurity" }
+        ],
+        tags: ["Leadership", "Architecture", "Mentorship", "System Design", "Agile", "Code Review"]
+      },
+      'mits-rep': {
+        title: "MITS S1 CSE CLASS REPRESENTATIVE",
+        tagline: "Muthoot Institute of Technology & Science - Student Union & Department Liaison",
+        badge: "GOVERNANCE",
+        match: "97% Match",
+        year: "2024 - Present",
+        category: "Academic Leadership",
+        stackBadge: "Student Body",
+        bgGradient: "linear-gradient(to top, #181818, rgba(29, 78, 216, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "Elected as Class Representative for the S1 Computer Science and Engineering (Core) cohort. Serving as primary representative to faculty, coordinating academic timetables, voicing student concerns, and spearheading peer study cohorts.",
+        specs: [
+          { label: "Institution", val: "MITS Kochi (Autonomous Institution, NBA Accredited)" },
+          { label: "Cohort Size", val: "70+ CSE Core Engineering Undergraduates" },
+          { label: "Key Mandate", val: "Inter-department coordination and student welfare" }
+        ],
+        tags: ["Communication", "Student Governance", "Mediation", "Event Organization", "MITS"]
+      },
+      '100xdevs': {
+        title: "100xDEVS ELEVATE COHORT",
+        tagline: "Intensive Full-Stack & Scalable Systems Engineering Fellowship",
+        badge: "FELLOWSHIP",
+        match: "99% Match",
+        year: "Current",
+        category: "Backend & Systems",
+        stackBadge: "Engineering Track",
+        bgGradient: "linear-gradient(to top, #181818, rgba(180, 83, 9, 0.4), rgba(0, 0, 0, 0.8))",
+        desc: "Selected into the rigorous Elevate Track by Harkirat Singh. Immersed in comprehensive architectural deep-dives including message queues, caching layers, containerization, microservice patterns, and extreme performance optimization in modern stacks.",
+        specs: [
+          { label: "Curriculum", val: "Distributed systems, Docker, Kubernetes, CI/CD, DSA" },
+          { label: "Coding Cadence", val: "Production-grade codebases, low-level concurrency" },
+          { label: "Methodology", val: "Zero-dependency engineering & deep stack mastery" }
+        ],
+        tags: ["100xDevs", "Elevate", "Distributed Systems", "C++", "Node.js", "Docker", "DevOps"]
+      },
+      'about-noel': {
+        title: "NOEL VARGHESE MATHEWS",
+        tagline: "B.Tech Computer Science (Core) Undergraduate • Systems & Low-Level Enthusiast",
+        badge: "FULL DOSSIER",
+        match: "100% Match",
+        year: "2024 - 2028",
+        category: "Profile Bio",
+        stackBadge: "Core Scholar",
+        bgGradient: "linear-gradient(to top, #181818, rgba(229, 9, 20, 0.35), rgba(0, 0, 0, 0.85))",
+        desc: "Noel Varghese Mathews is a high-drive computer science engineer pursuing his B.Tech at Muthoot Institute of Technology and Science (MITS, Kochi) under the Elevate Track. Possesses a strong analytical foundation reflected in a 96.92 percentile in JEE Main (AIR 48,543). Passionate about systems architecture, network resilience, operating systems, and building hardware-software integrated prototypes.",
+        specs: [
+          { label: "Degree", val: "B.Tech in Computer Science and Engineering (Core)" },
+          { label: "Campus", val: "Muthoot Institute of Technology & Science, Kochi, Kerala" },
+          { label: "Competitive Rank", val: "JEE Main 96.92 Percentile (AIR 48,543)" },
+          { label: "Key Roles", val: "Chief Systems Architect @ Code Kootu | Class Representative" }
+        ],
+        tags: ["C++", "Python", "Systems Engineering", "IoT", "Offensive Security", "Leadership", "MITS"]
+      }
+    };
+
+    let currentActiveProfile = "Recruiter";
+
+    // Play Authentic Netflix-style Ta-Dum chime via Tone.js
+    function playChime() {
+      try {
+        if (Tone.context.state !== 'running') {
+          Tone.start();
+        }
+        
+        // Two-stage low-frequency cinematic pulse
+        const synth = new Tone.MembraneSynth({
+          pitchDecay: 0.05,
+          octaves: 3,
+          oscillator: { type: 'sine' },
+          envelope: { attack: 0.001, decay: 0.4, sustain: 0.01, release: 1.4 }
+        }).toDestination();
+
+        const poly = new Tone.PolySynth(Tone.Synth, {
+          oscillator: { type: 'triangle' },
+          envelope: { attack: 0.02, decay: 0.3, sustain: 0.2, release: 0.8 }
+        }).toDestination();
+
+        const now = Tone.now();
+        synth.triggerAttackRelease("D1", "4n", now, 0.9);
+        poly.triggerAttackRelease(["D2", "A2", "D3"], "2n", now + 0.1, 0.4);
+      } catch (err) {
+        console.log("Audio initialized silently:", err);
+      }
+    }
+
+    // Profile Gate Select
+    function selectProfile(name, emoji) {
+      currentActiveProfile = name;
+      playChime();
+      
+      const gate = document.getElementById('profile-gate');
+      const app = document.getElementById('main-app');
+      const avatar = document.getElementById('current-avatar');
+      const label = document.getElementById('profile-label');
+      const termUser = document.getElementById('term-user');
+
+      avatar.innerText = emoji;
+      label.innerText = name;
+      if (termUser) termUser.innerText = name;
+
+      gate.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        gate.style.display = 'none';
+        app.classList.remove('opacity-0');
+        showToast(`Welcome, ${name}! Profile stream loaded.`);
+      }, 700);
+    }
+
+    function enterDirectly() {
+      selectProfile('Guest Visitor', '🍿');
+    }
+
+    function switchProfiles() {
+      const gate = document.getElementById('profile-gate');
+      const app = document.getElementById('main-app');
+      gate.style.display = 'flex';
+      setTimeout(() => {
+        gate.classList.remove('opacity-0', 'pointer-events-none');
+        app.classList.add('opacity-0');
+      }, 50);
+    }
+
+    // Dynamic Navbar Background Scroll Listener
+    window.addEventListener('scroll', () => {
+      const nav = document.getElementById('netflix-navbar');
+      if (window.scrollY > 40) {
+        nav.classList.remove('bg-gradient-to-b', 'from-black/90', 'via-black/50', 'to-transparent');
+        nav.classList.add('bg-[#141414]', 'shadow-2xl', 'border-b', 'border-zinc-800/80');
+      } else {
+        nav.classList.add('bg-gradient-to-b', 'from-black/90', 'via-black/50', 'to-transparent');
+        nav.classList.remove('bg-[#141414]', 'shadow-2xl', 'border-b', 'border-zinc-800/80');
+      }
+    });
+
+    // Detail Modal Controller
+    function openModal(key) {
+      const data = portfolioData[key];
+      if (!data) return;
+
+      const modal = document.getElementById('project-modal');
+      const title = document.getElementById('modal-title');
+      const tagline = document.getElementById('modal-tagline');
+      const badge = document.getElementById('modal-badge');
+      const match = document.getElementById('modal-match');
+      const year = document.getElementById('modal-year');
+      const category = document.getElementById('modal-category');
+      const stackBadge = document.getElementById('modal-stack-badge');
+      const desc = document.getElementById('modal-desc');
+      const banner = document.getElementById('modal-banner');
+      const specsList = document.getElementById('modal-specs-list');
+      const tagsList = document.getElementById('modal-tags');
+
+      title.innerText = data.title;
+      tagline.innerText = data.tagline;
+      badge.innerText = data.badge;
+      match.innerText = data.match;
+      year.innerText = data.year;
+      category.innerText = data.category;
+      stackBadge.innerText = data.stackBadge;
+      desc.innerText = data.desc;
+      banner.style.background = data.bgGradient;
+
+      // Render architectural specifications
+      specsList.innerHTML = '';
+      if (data.specs) {
+        data.specs.forEach(spec => {
+          const div = document.createElement('div');
+          div.className = 'bg-zinc-800/60 p-2.5 rounded border border-zinc-700/60';
+          div.innerHTML = `<span class="text-zinc-400 font-mono text-[11px] block">${spec.label}</span><span class="text-white font-medium">${spec.val}</span>`;
+          specsList.appendChild(div);
+        });
+      }
+
+      // Render tags
+      tagsList.innerHTML = '';
+      if (data.tags) {
+        data.tags.forEach(t => {
+          const span = document.createElement('span');
+          span.className = 'text-xs bg-zinc-800 text-zinc-300 px-2.5 py-1 rounded border border-zinc-700';
+          span.innerText = t;
+          tagsList.appendChild(span);
+        });
+      }
+
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('project-modal');
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close on outside click
+    window.addEventListener('click', (e) => {
+      const pModal = document.getElementById('project-modal');
+      const tModal = document.getElementById('terminal-modal');
+      if (e.target === pModal) closeModal();
+      if (e.target === tModal) toggleTerminalModal();
+    });
+
+    // Terminal Modal & Interactive Shell
+    function toggleTerminalModal() {
+      const term = document.getElementById('terminal-modal');
+      term.classList.toggle('hidden');
+      if (!term.classList.contains('hidden')) {
+        document.getElementById('terminal-stdin').focus();
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    function openTerminalCommand(cmd) {
+      closeModal();
+      toggleTerminalModal();
+      const input = document.getElementById('terminal-stdin');
+      input.value = cmd;
+      handleTerminalInput({ preventDefault: () => {} });
+    }
+
+    function handleTerminalInput(e) {
+      e.preventDefault();
+      const input = document.getElementById('terminal-stdin');
+      const stdout = document.getElementById('terminal-stdout');
+      const cmd = input.value.trim().toLowerCase();
+      input.value = '';
+
+      if (!cmd) return;
+
+      // Echo command
+      const cmdLine = document.createElement('p');
+      cmdLine.className = 'text-zinc-400';
+      cmdLine.innerHTML = `<span class="text-emerald-400 font-bold">noel@systems:~$</span> ${cmd}`;
+      stdout.appendChild(cmdLine);
+
+      const resp = document.createElement('div');
+      resp.className = 'text-zinc-200 text-xs py-1 space-y-1';
+
+      switch(cmd) {
+        case 'help':
+          resp.innerHTML = `
+            <p class="text-amber-300">Available commands:</p>
+            <p>• <span class="text-white font-mono">bio</span> : Academic profile &amp; credentials</p>
+            <p>• <span class="text-white font-mono">projects</span> : Flagship project architectures</p>
+            <p>• <span class="text-white font-mono">skills</span> : Language &amp; systems stack breakdown</p>
+            <p>• <span class="text-white font-mono">voidflow</span> : Simulate VOIDFLOW flood system</p>
+            <p>• <span class="text-white font-mono">contact</span> : Dispatch contact information</p>
+            <p>• <span class="text-white font-mono">resume</span> : Trigger resume file download</p>
+            <p>• <span class="text-white font-mono">clear</span> : Clear terminal output</p>
+          `;
+          break;
+        case 'bio':
+          resp.innerHTML = `
+            <p class="text-white font-bold">Noel Varghese Mathews</p>
+            <p>B.Tech Computer Science and Engineering (Core) @ MITS Kochi (Elevate Track)</p>
+            <p>Chief Systems Architect &amp; Technical Director @ Code Kootu</p>
+            <p>JEE Main: 96.92%ile (AIR 48,543)</p>
+            <p>Class Representative (S1 CSE Core)</p>
+          `;
+          break;
+        case 'projects':
+          resp.innerHTML = `
+            <p class="text-cyan-400 font-bold">[1] VOIDFLOW</p>
+            <p>Autonomous Urban Flood Mitigation with sensor meshes and sluice controls.</p>
+            <p class="text-amber-400 font-bold mt-1">[2] CONVERGE Flow Inspector</p>
+            <p>1st Place Winner real-time client-server event telemetry system.</p>
+            <p class="text-emerald-400 font-bold mt-1">[3] Packet Interceptor</p>
+            <p>Kali Linux / Scapy network intrusion and ARP anomaly monitor.</p>
+          `;
+          break;
+        case 'skills':
+          resp.innerHTML = `
+            <p><span class="text-red-400 font-mono">Languages:</span> C++, Python, JavaScript/Node.js, Bash, SQL</p>
+            <p><span class="text-blue-400 font-mono">Infrastructure:</span> Linux (Kali/Ubuntu), Docker, Git, Arduino/Sensors</p>
+            <p><span class="text-emerald-400 font-mono">Core Theory:</span> Data Structures, Distributed Architecture, TCP/IP, Cryptography</p>
+          `;
+          break;
+        case 'voidflow':
+        case 'simulate':
+          resp.innerHTML = `
+            <p class="text-cyan-300 font-bold">[SIMULATION] Initiating VOIDFLOW hydrologic load balance test...</p>
+            <p class="text-zinc-400">&gt; Sensor Node 01: Water level 88% (CRITICAL THRESHOLD)</p>
+            <p class="text-zinc-400">&gt; Triggering Servos: Sluice gate #3 opened at 100% duty cycle</p>
+            <p class="text-zinc-400">&gt; Retention Basin diversion: 1,400 L/min rerouted to subterranean void vault</p>
+            <p class="text-emerald-400 font-bold">&gt; STATUS: Urban flood danger averted. Pressure normalized.</p>
+          `;
+          break;
+        case 'contact':
+          resp.innerHTML = `
+            <p>Email: <span class="text-white font-mono">noel.mathews@mits.ac.in</span></p>
+            <p>LinkedIn: <span class="text-blue-400">linkedin.com/in/noelvarghese</span></p>
+            <p>GitHub: <span class="text-zinc-300">github.com/noelvarghese</span></p>
+          `;
+          break;
+        case 'resume':
+          triggerResumeDownload();
+          resp.innerHTML = `<p class="text-emerald-400">Triggering resume document download...</p>`;
+          break;
+        case 'clear':
+          stdout.innerHTML = '';
+          return;
+        default:
+          resp.innerHTML = `<p class="text-red-400">Command not recognized: '${cmd}'. Type 'help' for valid commands.</p>`;
+      }
+
+      stdout.appendChild(resp);
+      stdout.scrollTop = stdout.scrollHeight;
+    }
+
+    // Search Handler
+    function focusSearch() {
+      document.getElementById('portfolio-search').focus();
+    }
+
+    function handleSearch(query) {
+      const q = query.toLowerCase().trim();
+      const cards = document.querySelectorAll('.netflix-card');
+      
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = '';
+          card.style.opacity = '1';
+        } else {
+          card.style.opacity = '0.2';
+        }
+      });
+    }
+
+    // Resume Download Simulation
+    function triggerResumeDownload() {
+      playChime();
+      showToast("Generating Noel_Varghese_Mathews_Resume.pdf...");
+      
+      // Simulate download via programmatic file blob
+      setTimeout(() => {
+        const resumeContent = `=====================================================
+NOEL VARGHESE MATHEWS
+B.Tech Computer Science & Engineering (Core) | Elevate Track
+Muthoot Institute of Technology and Science (MITS), Kochi
+Chief Systems Architect & Technical Director @ Code Kootu
+Email: noel.mathews@mits.ac.in | JEE Main 96.92%ile (AIR 48,543)
+=====================================================
+
+1. TECHNICAL SUMMARY:
+- Languages: C++, Python, JavaScript/Node.js, Shell (Bash), SQL
+- Systems & Tools: Linux (Kali, Ubuntu), Docker, Git, Arduino, Scapy, Wireshark, Bettercap
+- Fundamentals: Data Structures & Algorithms, Network Protocols, Distributed Systems
+
+2. KEY FLAGSHIP PROJECTS:
+- VOIDFLOW: Autonomous Urban Flood Mitigation System with sensor array & sluice gate servo actuation.
+- CONVERGE Flow Inspector: 1st Place Hackathon Winner - Real-time client-server execution visualizer.
+- Network Packet Interceptor: Security analysis and ARP spoofing detection toolset.
+- Hostel Kathakal: Creative short media reel directed and color graded in DaVinci Resolve.
+
+3. LEADERSHIP & ROLES:
+- Chief Systems Architect & Technical Director, Code Kootu Engineering Wing.
+- Class Representative, S1 CSE Core, MITS Kochi.
+- 100xDevs Elevate Cohort Member.
+
+4. HONORS & MILESTONES:
+- 1st Place Winner - CONVERGE Technical Hackathon (Oct 2026).
+- JEE Main 96.92 Percentile (All India Rank: 48,543).
+- 100xDevs DSA & C++ Bootcamp Certification.
+=====================================================`;
+        
+        const blob = new Blob([resumeContent], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Noel_Varghese_Mathews_Resume.txt';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        showToast("Resume download completed successfully!");
+      }, 800);
+    }
+
+    // Copy Email to Clipboard
+    function copyEmail() {
+      const email = "noel.mathews@mits.ac.in";
+      const dummy = document.createElement("input");
+      document.body.appendChild(dummy);
+      dummy.value = email;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+
+      const copyLabel = document.getElementById('copy-email-text');
+      if (copyLabel) copyLabel.innerText = "Copied to Clipboard!";
+      setTimeout(() => {
+        if (copyLabel) copyLabel.innerText = "Copy Email";
+      }, 3000);
+
+      showToast("Email address copied to clipboard!");
+    }
+
+    function copyModalLink() {
+      const shareBtnText = document.getElementById('share-btn-text');
+      shareBtnText.innerText = "Link Copied!";
+      setTimeout(() => {
+        shareBtnText.innerText = "Share Node";
+      }, 2500);
+      showToast("Direct profile deep link copied!");
+    }
+
+    // Toast Helper
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      toastMsg.innerText = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // Keyboard Shortcuts (Esc to close modals)
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        const term = document.getElementById('terminal-modal');
+        if (!term.classList.contains('hidden')) toggleTerminalModal();
+      }
+      if (e.key === '`' && e.ctrlKey) {
+        toggleTerminalModal();
+      }
+    });
+  </script>
+</body>
+</html>
