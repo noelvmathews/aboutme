@@ -8,9 +8,10 @@
 <script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
+<div class="aur"></div><div id="pg"></div><div id="cur"></div>
 <nav><div class="w">
 <a class="logo" href="#top">Noel Mathews</a>
 <a class="nl" href="#work">Work</a><a class="nl" href="#codekootu">CodeKootu</a><a class="nl" href="#path">Path</a><a class="nl" href="#beyond">Beyond code</a>
@@ -20,8 +21,10 @@
 
 <header class="hero" id="top"><div class="w">
 <div>
+<p class="pill"><i class="dot"></i>Open to internships and collaborations</p>
 <h1><span><i>Noel</i></span><span><i>Mathews</i></span></h1>
 <p class="lead"><b>Computer science student at MITS Kochi.</b> I build backend systems, break things to learn security, and lead a 20-person student tech collective. Scored 96.9 percentile in JEE Main 2026.</p>
+<p class="type">I build <b id="tw"></b><u></u></p>
 <div class="cta">
 <a class="btn p" href="https://github.com/noelvmathews">GitHub</a>
 <a class="btn" href="https://www.linkedin.com/in/noelvmathews/">LinkedIn</a>
@@ -29,7 +32,7 @@
 <a class="btn" href="mailto:noelvmathews@gmail.com">Email me</a>
 <button class="btn" onclick="print()">Download PDF</button>
 </div></div>
-<img class="ph" src="assets/photo.jpg" alt="Noel Mathews">
+<div class="phw"><img class="ph" src="photo.jpg" alt="Noel Mathews"></div>
 </div></header>
 
 <div class="w rv"><div class="nums">
@@ -38,6 +41,8 @@
 <div><b>1st</b><span>CONVERGE real-time systems contest</span></div>
 <div><b>92/100</b><span>Computer Science, Class 12</span></div>
 </div></div>
+
+<div class="mq" aria-hidden="true"><div id="mqi"></div></div>
 
 <section id="about"><div class="w about rv">
 <div><h2>About</h2><p>I like understanding how complex systems fit together, whether that is a distributed service, a seat-locking engine, or the spec sheet of a car.</p></div>
@@ -111,5 +116,5 @@
 <footer><div class="w">Noel Varghese Mathews · Kochi, Kerala · Built by hand.</div></footer>
 
 <div id="pal" role="dialog" aria-label="Quick search"><div><input id="pi" placeholder="Jump to…" autocomplete="off"><section style="padding:6px 0;border:0" id="pl"></section></div></div>
-<script src="assets/script.js"></script>
+<script src="script.js"></script>
 </body></html>
