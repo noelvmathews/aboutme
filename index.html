@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Noel Mathews · CSE @ MITS Kochi</title>
+<meta name="description" content="Noel Varghese Mathews: B.Tech CSE student at MITS Kochi, 96.9 percentile JEE Main, co-founder of CodeKootu. Backend systems, cybersecurity, ML.">
+<script>try{var t=localStorage.getItem("theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<nav><div class="w">
+<a class="logo" href="#top">Noel Mathews</a>
+<a class="nl" href="#work">Work</a><a class="nl" href="#codekootu">CodeKootu</a><a class="nl" href="#path">Path</a><a class="nl" href="#beyond">Beyond code</a>
+<button id="kb" aria-label="Open quick search">Search ⌘K</button>
+<button id="th" aria-label="Switch dark or warm theme">Warm</button>
+</div></nav>
+
+<header class="hero" id="top"><div class="w">
+<div>
+<h1><span><i>Noel</i></span><span><i>Mathews</i></span></h1>
+<p class="lead"><b>Computer science student at MITS Kochi.</b> I build backend systems, break things to learn security, and lead a 20-person student tech collective. Scored 96.9 percentile in JEE Main 2026.</p>
+<div class="cta">
+<a class="btn p" href="https://github.com/noelvmathews">GitHub</a>
+<a class="btn" href="https://www.linkedin.com/in/noelvmathews/">LinkedIn</a>
+<a class="btn" href="https://codeforces.com/profile/noelvmathews">Codeforces</a>
+<a class="btn" href="mailto:noelvmathews@gmail.com">Email me</a>
+<button class="btn" onclick="print()">Download PDF</button>
+</div></div>
+<img class="ph" src="assets/photo.jpg" alt="Noel Mathews">
+</div></header>
+
+<div class="w rv"><div class="nums">
+<div><b>96.92</b><span>JEE Main 2026 percentile</span></div>
+<div><b>20+</b><span>people in CodeKootu</span></div>
+<div><b>1st</b><span>CONVERGE real-time systems contest</span></div>
+<div><b>92/100</b><span>Computer Science, Class 12</span></div>
+</div></div>
+
+<section id="about"><div class="w about rv">
+<div><h2>About</h2><p>I like understanding how complex systems fit together, whether that is a distributed service, a seat-locking engine, or the spec sheet of a car.</p></div>
+<div>
+<p>I am a B.Tech CSE student in the Elevate cohort at MITS Kochi, studying the IIT Madras BS in Data Science alongside, and training in full-stack engineering and software architecture at 100x School.</p>
+<p>My focus is backend systems, cybersecurity and machine learning, with a steady eye on aviation and automotive technology.</p>
+<div class="tools"><span>Python</span><span>C++</span><span>JavaScript</span><span>Go</span><span>MySQL</span><span>Kali Linux</span><span>Burp Suite</span><span>Arduino</span><span>DaVinci Resolve</span></div>
+</div></div></section>
+
+<section id="work"><div class="w rv">
+<h2>Work</h2><p class="sub">Projects from GitHub and the CodeKootu lab. Filter by topic or search.</p>
+<div class="bar"><input id="q" type="search" placeholder="Search projects" aria-label="Search projects">
+<button class="chip on" data-f="all">All</button><button class="chip" data-f="backend">Backend</button><button class="chip" data-f="security">Security</button><button class="chip" data-f="ml">ML</button><button class="chip" data-f="hardware">Hardware</button><button class="chip" data-f="media">Media</button></div>
+<div id="list">
+<div class="row" data-t="backend security"><div><h3>Build-The-Internet</h3><small>Go · OpenAPI 3.0</small></div><p>A 4-node distributed microservice system with dynamic Go DNS service discovery and zero hardcoded IPs. Includes anti-hijack validation and brute-force rate limiting.</p><a href="https://github.com/noelvmathews/Build-The-Internet">Source</a></div>
+<div class="row" data-t="backend"><div><h3>Cinema Ticketing System</h3><small>Python · MySQL</small></div><p>A high-concurrency seat reservation engine with safe seat locking and a transactional booking workflow.</p><a href="https://github.com/noelvmathews/cinema-ticketing-system">Source</a></div>
+<div class="row" data-t="hardware ml"><div><h3>Autonomous Drone Navigation</h3><small>Python · MIT licence</small></div><p>Flight control logic, sensor telemetry and path planning, built for a drone design competition.</p><a href="https://github.com/noelvmathews/autonomous-drone-navigation">Source</a></div>
+<div class="row" data-t="ml"><div><h3>Lifestyle Health Risk ML</h3><small>Python · IIT Madras AI &amp; ML course</small></div><p>Exploratory analysis, K-Means clustering and Decision Tree classification on how lifestyle habits affect health risk.</p><a href="https://github.com/noelvmathews/lifestyle-health-risk-ml">Source</a></div>
+<div class="row" data-t="hardware"><div><h3>VOIDFLOW</h3><small>Embedded systems</small></div><p>Flood and landslide prevention: automated shutters and live water-level sensing redirect runoff into reinforced underground storage.</p><span></span></div>
+<div class="row" data-t="backend security"><div><h3>CodeKootu infrastructure</h3><small>DNS · email routing</small></div><p>Custom organisational email and DNS routing that follows dynamic client IP addresses without hardcoded endpoints.</p><a href="https://www.codekootu.codes">Visit</a></div>
+<div class="row" data-t="media"><div><h3>Hostel Kathakal</h3><small>Brand · storytelling</small></div><p>A hostel storytelling initiative with its own circular yellow emblem and visual identity.</p><span></span></div>
+</div><p class="empty" id="none">No projects match. Clear the search or pick All.</p>
+</div></section>
+
+<section id="codekootu"><div class="w rv">
+<h2>CodeKootu</h2><p class="sub">I co-founded and lead this student-run technical collective. Five wings, more than twenty members, one shared lab.</p>
+<div class="cols">
+<div><h3>Software</h3><p>Web platforms, backends and tools.</p></div>
+<div><h3>Cybersecurity</h3><p>Security and infrastructure.</p></div>
+<div><h3>Electronics</h3><p>Hardware and embedded builds.</p></div>
+<div><h3>Mechanical</h3><p>Mechanical and structural design.</p></div>
+<div><h3>Media</h3><p>Outreach, film and design.</p></div>
+</div>
+<p style="margin-top:22px"><a class="btn" href="https://www.codekootu.codes">codekootu.codes</a></p>
+</div></section>
+
+<section id="path"><div class="w rv">
+<h2>Path</h2><p class="sub">Education and campus roles, newest first.</p>
+<div class="tl">
+<div><small>Nov 2026</small><h3>VJ, MITS Media Club</h3><p>Subcommittee member.</p></div>
+<div><small>Oct 2026</small><h3>Co-Class Representative and College Union Member</h3><p>Elected for S1 CSE Section B, MITS Kochi.</p></div>
+<div><small>Oct 2026</small><h3>1st place, CONVERGE</h3><p>Client-server real-time system coding competition at MITS.</p></div>
+<div><small>2026 to 2030</small><h3>B.Tech CSE, MITS Kochi (Elevate)</h3><p>Core computer science, with the IIT Madras BS in Data Science and Applications alongside.</p></div>
+<div><small>2026</small><h3>100x School, Cohort 3</h3><p>Full-stack engineering and software architecture.</p></div>
+<div><small>Apr 2026</small><h3>JEE Main: 96.92 percentile, AIR 48,543</h3><p>Preceded by a 92/100 in Class 12 Computer Science.</p></div>
+<div><small>2024 to now</small><h3>Freelance design, copy and SEO</h3><p>Logos, posters, websites and campaigns. Also runs the Noel’s Vlog YouTube channel.</p></div>
+</div></div></section>
+
+<section id="beyond"><div class="w two rv">
+<div><h2>Beyond code</h2><p>I shoot and edit in DaVinci Resolve, and I took part in the Voyage in Frames photography competition at Anchorage 2026.</p></div>
+<div>
+<h3>Kashmir, June 2026</h3><p>A travel film trip through Srinagar, Pahalgam, Gulmarg, Sonamarg and Nigeen Lake.</p>
+<h3>Wheels and wings</h3><p>Avgeek at heart. I collect diecast cars, from the Bugatti Chiron to the Nissan GT-R, and follow aviation and automotive engineering closely.</p>
+<h3>Lived in Dubai</h3><p>About ten years, before moving to Kerala. Cinema in English, Malayalam and Tamil, and football.</p>
+</div></div></section>
+
+<section id="creds"><div class="w rv">
+<h2>Credentials</h2><p class="sub">Selected certificates.</p>
+<ul class="cert">
+<li>100xDevs Cohort 3 <em>2026</em></li><li>IIT Madras CODE: Data Science and AI <em>2026</em></li>
+<li>Ethical Hacking Starter, Offenso Academy <em>2026</em></li><li>DXB Govt Prompt Engineers <em>2026</em></li>
+<li>Anchorage: Voyage in Frames <em>2026</em></li><li>Google Analytics <em>2024</em></li>
+<li>Fundamentals of Digital Marketing, Google <em>2024</em></li><li>Best Magazine Editor and Layout Designer <em>School</em></li>
+</ul></div></section>
+
+<section id="contact"><div class="w rv">
+<p class="sub">Open to internships, collaborations and good conversations.</p>
+<a class="big" href="mailto:noelvmathews@gmail.com">noelvmathews@gmail.com</a>
+</div></section>
+
+<footer><div class="w">Noel Varghese Mathews · Kochi, Kerala · Built by hand.</div></footer>
+
+<div id="pal" role="dialog" aria-label="Quick search"><div><input id="pi" placeholder="Jump to…" autocomplete="off"><section style="padding:6px 0;border:0" id="pl"></section></div></div>
+<script src="assets/script.js"></script>
+</body></html>
