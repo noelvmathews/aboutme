@@ -14,7 +14,7 @@ q.oninput=filter;
 $$(".chip").forEach(function(c){c.onclick=function(){$$(".chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on");f=c.dataset.f;filter()}});
 rows.forEach(function(r){r.addEventListener("mousemove",function(e){var b=r.getBoundingClientRect();r.style.setProperty("--x",e.clientX-b.left+"px");r.style.setProperty("--y",e.clientY-b.top+"px")})});
 
-var items=[["Work","#work"],["CodeKootu","#codekootu"],["Path","#path"],["Beyond code","#beyond"],["Credentials","#creds"],["Contact","#contact"],["GitHub","https://github.com/noelvmathews"],["LinkedIn","https://www.linkedin.com/in/noelvmathews/"],["Codeforces","https://codeforces.com/profile/noelvmathews"],["Download PDF","#print"],["Switch theme","#theme"]];
+var items=[["Work","#work"],["Toolkit","#toolkit"],["CodeKootu","#codekootu"],["Path","#path"],["Beyond code","#beyond"],["Credentials","#creds"],["Contact","#contact"],["CodeKootu site","https://www.codekootu.codes"],["GitHub","https://github.com/noelvmathews"],["LinkedIn","https://www.linkedin.com/in/noelvmathews/"],["Codeforces","https://codeforces.com/profile/noelvmathews"],["Download PDF","#print"],["Switch theme","#theme"]];
 var pal=$("#pal"),pi=$("#pi"),pl=$("#pl"),sel=0;
 function draw(){var s=pi.value.toLowerCase(),m=items.filter(function(i){return i[0].toLowerCase().indexOf(s)>-1});sel=0;pl.innerHTML=m.map(function(i,k){return'<a href="'+i[1]+'"'+(k?"":' class="sel"')+'>'+i[0]+"</a>"}).join("")}
 function open(){pal.classList.add("on");pi.value="";draw();pi.focus()}
@@ -44,3 +44,18 @@ var W=["backend systems.","secure networks.","machine learning models.","things 
 (function tick(){var w=W[wi];ci+=del?-1:1;tw.textContent=w.slice(0,ci);var t=del?35:70;if(!del&&ci===w.length){del=true;t=1600}else if(del&&ci===0){del=false;wi=(wi+1)%W.length;t=350}setTimeout(tick,t)})();
 var T=["Python","Go","Backend systems","Cybersecurity","Machine learning","Embedded systems","Cinematography","Aviation","Automotive","Leadership"],h="";for(var i=0;i<2;i++)T.forEach(function(x){h+="<span>"+x+"</span>"});$("#mqi").innerHTML=h;
 })();
+(function(){
+var $=function(s){return document.querySelector(s)},it=$("#intro"),B=document.body,go=false;
+function done(){B.classList.add("ready");it.classList.add("out");setTimeout(function(){it.classList.add("gone")},1200);try{sessionStorage.setItem("seen","1")}catch(e){}}
+function fin(){if(go)return;go=true;done()}
+var seen;try{seen=sessionStorage.getItem("seen")}catch(e){}
+if(seen){it.classList.add("gone");B.classList.add("ready")}else{
+var L=["Warming the workbench","Compiling projects","Wiring the network","Polishing the pixels","Ready"],bar=$("#ibar"),il=$("#il"),pc=$("#pc"),t0=performance.now(),D=3000;
+it.onclick=fin;$("#iskip").onclick=function(e){e.stopPropagation();fin()};
+(function f(t){if(go)return;var k=Math.min((t-t0)/D,1),e=1-Math.pow(1-k,2.2);bar.style.transform="scaleX("+e+")";pc.textContent=Math.round(e*100)+"%";il.textContent=L[Math.min(L.length-1,Math.floor(e*L.length))];if(k<1)requestAnimationFrame(f);else setTimeout(fin,500)})(t0);}
+var m={top:0,work:1,codekootu:2,path:3,contact:4},d=[].slice.call(document.querySelectorAll(".dock a"));
+var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting&&m[e.target.id]!==undefined){d.forEach(function(a,i){a.classList.toggle("on",i===m[e.target.id])})}})},{rootMargin:"-45% 0px -50% 0px"});
+["top","work","codekootu","path","contact"].forEach(function(i){var e=document.getElementById(i);if(e)o.observe(e)});
+})();
+
+document.querySelectorAll('a[href^="http"]').forEach(function(a){a.target="_blank";a.rel="noopener"});
